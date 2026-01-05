@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Bird : MonoBehaviour
 {
     private const int LEFT_BUTTON = 0;
@@ -22,7 +22,17 @@ public class Bird : MonoBehaviour
             Flap();
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadScene();
+        }
+
         _rb.MoveRotation(_rb.velocity.y * _rotation);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Time.timeScale = 0f;
     }
 
     private void Flap()
@@ -32,5 +42,10 @@ public class Bird : MonoBehaviour
         _rb.AddForce(Vector2.up*_flapForce, ForceMode2D.Impulse);
     }
 
+    private void ReloadScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 }
