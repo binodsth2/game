@@ -1,199 +1,166 @@
-**Flappy Bird Clone in Unity**
-A complete implementation of the classic Flappy Bird game developed with Unity Engine, featuring custom shaders, responsive physics, and clean game architecture. This project was created as part of comprehensive Unity game development learning.
+# Flappy Bird Game in Unity
+
+A 2D Flappy Bird-style game developed in Unity 2022.3.62f3. Navigate a bird through moving obstacles by flapping to gain height and avoid collisions.
+
+## 🎮 Gameplay
+
+- **Objective**: Guide the bird through gaps in moving bricks/pipes
+- **Controls**: 
+  - Press `SPACE` or `LEFT MOUSE BUTTON` to flap
+- **Scoring**: Pass through each brick pair to increase your score
+- **Game Over**: Collision with bricks or boundaries ends the game
+
+## 📋 Features
+
+- Smooth flapping mechanics with physics-based movement
+- Procedurally spawned obstacles with random vertical positioning
+- Real-time score tracking
+- Bird animation with collision detection
+- Responsive controls
+- Scene reload on game over with brief slow-motion effect
+
+## 🏗️ Project Structure
+
+```
+Assets/
+├── _Scripts/
+│   ├── Bird.cs              
+│   ├── Bricks.cs            
+│   └── BricksSpawner.cs     
+├── Animations/
+│   ├── Bird_Hit.anim        
+│   ├── Flying_Bird.anim     
+│   └── GreenFlappyBird_0.controller  
+├── Prefabs/
+│   └── Brickpair.prefab     
+├── Scenes/
+│   └── Play.unity           
+├── Sprites/                 
+└── Settings/
+```
+                
+
+## 🔧 Core Components
+
+### Bird.cs
+Controls the player's bird character:
+- **Flapping**: Applies upward force with configurable strength
+- **Rotation**: Bird tilts based on velocity
+- **Collision Detection**: Triggers game over on impact
+- **Scoring**: Increments score when passing obstacles
+- **Max Height Limit**: Prevents bird from flying too high
+
+**Key Settings:**
+- `_flapForce`: 8f (upward impulse strength)
+- `_rotation`: 1.5f (tilt sensitivity)
+- `_maxHeight`: 4f (maximum flying height)
+
+### Bricks.cs
+Manages individual obstacle behavior:
+- Moves obstacles from right to left at constant speed
+- Automatically destroys after lifecycle timeout
+- **Speed**: 3f (pixels per second)
+- **Lifecycle**: 12f seconds
+
+### BricksSpawner.cs
+Spawns brick pairs at regular intervals:
+- **Spawn Interval**: 3f seconds
+- **Vertical Range**: -1.5f to 0.8f (randomized gap position)
+- Immediate spawn on game start
+- Gizmo visualization for spawn range in editor
+
+## 🎨 Animations
+
+- **Flying_Bird**: Idle flying state animation
+- **Bird_Hit**: Collision impact animation
+- Smooth transitions between animation states
+
+## 🚀 Getting Started
+
+### Requirements
+- Unity 2022.3.62f3 or later
+- 2D rendering pipeline configured
+- TextMeshPro package (included)
+
+### Installation
+1. Clone the repository
+2. Open the project in Unity
+3. Navigate to Assets/Scenes/Play.unity
+4. Press Play in the editor
+
+### Building
+Build the game through Unity's Build Settings:
+- File → Build Settings
+- Select target platform
+- Click Build
+
+## 🎯 Game Settings
+
+All key parameters are exposed in the Unity Inspector for easy tuning:
+
+| Component | Parameter | Default |
+|-----------|-----------|---------|
+| Bird | Flap Force | 8f |
+| Bird | Max Height | 4f |
+| Bird | Rotation Sensitivity | 1.5f |
+| Bricks | Move Speed | 3f |
+| Bricks | Lifecycle | 12f |
+| BricksSpawner | Spawn Interval | 3f |
+| BricksSpawner | Min Y Position | -1.5f |
+| BricksSpawner | Max Y Position | 0.8f |
 
-**Project Overview**
-This repository contains a fully functional Flappy Bird clone developed through structured learning. Players control a bird navigating through procedurally generated pipe obstacles with smooth gameplay mechanics, visual polish, and score tracking.
-Used Features:
-**Intuitive Controls:** Single-button gameplay (Spacebar/Mouse Click) for instant accessibility
+## 🎨 Sprites & Assets
 
-**Dynamic Obstacles:** Procedurally generated pipes with random height variations
+- **GreenFlappyBird.png**: Main bird sprite
+- **BirdHit.png**: Collision sprite variant
+- **brick_3.png**: Obstacle sprite
+- **Full-Background.png**: Game background
+- **Tile.png**: Tileable environment texture
 
-**Score Tracking:** Real-time scoring system with persistent high score tracking
+## 📱 UI
 
-**Visual Polish:** Custom shader effects and smooth animations (83.2% of codebase)
+- **Score Display**: Real-time score using TextMeshPro
+- Located in the top corner of the gameplay area
+- Updates instantly when bird passes obstacles
 
-**Game State Management:** Clean state handling (Menu, Playing, Game Over)
+## 🐛 Known Features & Behavior
 
-**Audio Integration:** Sound effects for actions and background music
+- Game briefly slows down (0.1x speed) when collision occurs before reload
+- Bird has maximum height limit to maintain gameplay challenge
+- Score persists only during a single play session (resets on game over)
+- Obstacles spawn immediately at game start for immediate challenge
 
-**Responsive UI:** Clean interface with score displays and game over screens
+## 🔄 Game Loop
 
-**Project Structure**
-Flappy-Bird-Game-in-Unity/
-├── Assets/                   
-│   ├── Scripts/             
-│   ├── Shaders/             
-│   │   ├── ShaderLab files  
-│   │   └── HLSL files       
-│   ├── Scenes/              
-│   ├── Prefabs/             
-│   ├── Sprites/             
-│   └── Audio/               
-├── ProjectSettings/         
-├── Packages/                
-└── .gitattributes           
-🚀 Getting Started
-Prerequisites
-Unity 2021.3 LTS or newer
+1. Bird spawns at starting position
+2. Obstacles spawn at 3-second intervals with random vertical gaps
+3. Player flaps to navigate through gaps
+4. Score increases on successful gap passage
+5. Collision triggers game over animation and scene reload
+6. Scene resets for next attempt
 
-Git for version control
+## 🤝 Development Notes
 
-Installation
-Clone the repository:
+- Uses Physics2D for realistic movement
+- Rigidbody2D for collision detection
+- Animator for smooth sprite animations
+- Scene Manager for restarts
+- Time scaling for dramatic collision effect
 
-bash
-git clone https://github.com/binodsth2/Flappy-Bird-Game-in-Unity.git
-Open in Unity Hub
+## 📦 Dependencies
 
-Run the game from the main scene
+- Unity 2022.3.62f3
+- TextMeshPro (included with Unity)
+- 2D Physics System
+- Universal Render Pipeline (configured in ProjectSettings)
 
-How to Play
-Click Start in the main menu
+## 📄 License
 
-Press Spacebar or Mouse Click to flap
+This is a learning/hobby project. Feel free to modify and extend as needed.
 
-Navigate through pipe gaps
+**Engine**: Unity 2022.3.62f3  
+**Platform**: Windows/Cross-platform
 
-Avoid collisions with pipes and ground
 
-Each passed pipe pair awards 1 point
-
-🏗️ System Architecture
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Core Components
-Bird Controller: Handles player input and physics response
-
-Pipe Spawner: Manages obstacle generation and movement
-
-Game Manager: Central controller for game states
-
-Score Manager: Tracks and persists scoring data
-
-Shader System: Custom visual effects pipeline
-
-🎓 Learning Journey
-Course-Based Development
-This project was developed following comprehensive instruction from:
-
-🎯 Flappy Bird from Scratch (Unity 6)
-Instructor: Caroline Middlebrook
-
-Key Skills Acquired
-Skill Area	Implementation in Project
-Unity Basics	Scene setup, GameObject hierarchy, component system
-C# Programming	Game logic, event handling, state management
-Physics 2D	Rigidbody2D, Colliders, gravity simulation
-UI System	Canvas, Text components, screen transitions
-Shader Programming	Visual effects using ShaderLab and HLSL
-Audio Integration	Sound effects and background music
-Development Milestones
-Project Setup: Unity configuration and asset organization
-
-Core Mechanics: Bird physics and pipe spawning system
-
-Game Logic: Score tracking and collision detection
-
-Polish Phase: UI implementation and audio integration
-
-Visual Enhancement: Custom shader development
-
-🙏 Special Thanks
-To My Instructor
-A heartfelt thank you to Caroline Middlebrook for creating the excellent Flappy Bird from Scratch (Unity 6) course. Your clear explanations, step-by-step guidance, and practical teaching approach made this learning journey both enjoyable and educational.
-
-Course Highlights
-Comprehensive Coverage: From Unity basics to advanced shader programming
-
-Practical Approach: Hands-on development with real-time problem solving
-
-Best Practices: Industry-standard coding patterns and project organization
-
-Visual Focus: Emphasis on creating polished, visually appealing games
-
-Learning Outcomes
-This course helped me master:
-
-Game architecture and state management
-
-Physics-based gameplay mechanics
-
-Professional Unity development workflows
-
-Problem-solving through iterative development
-
-Creating complete, shippable game projects
-
-🔧 Technical Implementation
-Language Distribution
-ShaderLab (70.9%): Unity's shader definition language for visual effects
-
-HTML (13.8%): Web interface and documentation components
-
-HLSL (12.3%): High-level shader language for GPU programming
-
-C# (3.0%): Game logic and systems programming
-
-Key Scripts
-Script	Responsibility	Key Methods
-BirdController	Player movement	Flap(), OnCollisionEnter2D()
-PipeSpawner	Obstacle management	SpawnPipe(), MovePipes()
-GameManager	State control	StartGame(), GameOver()
-ScoreManager	Scoring logic	AddScore(), SaveHighScore()
-📱 Build & Deployment
-WebGL Build
-In Unity: File → Build Settings
-
-Select WebGL platform
-
-Configure player settings
-
-Click Build and deploy to web server
-
-Standalone Build
-Choose target platform (Windows/Mac/Linux)
-
-Adjust resolution settings
-
-Build executable package
-
-🔄 Version History
-Jan 6, 2026: Final code commit - Project completion
-
-Initial commits: Base project setup and asset integration
-
-📄 License
-This project is provided for educational and portfolio purposes. All code is available for learning and modification. Please respect licenses of any third-party assets included.
-
-🚀 Next Steps
-Building on this foundation, I plan to:
-
-Add power-ups and additional gameplay mechanics
-
-Implement level progression systems
-
-Expand the visual effects library
-
-Optimize for mobile platforms
-
-Add multiplayer functionality
-
-🎮 Try the Game!
-Can you beat the high score? This project represents not just code, but the learning journey and skills acquired through dedicated study and practice.
 
 "The beautiful thing about learning is that nobody can take it away from you." - B.B. King
